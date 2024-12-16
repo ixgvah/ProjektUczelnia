@@ -1,9 +1,10 @@
 package projekt;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 
-public abstract class Osoba {
+public abstract class Osoba implements Serializable {
     protected String imie;
     protected String nazwisko;
     protected String pesel;

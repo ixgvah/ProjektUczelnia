@@ -53,6 +53,13 @@ public class Uczelnia{
             }
         }
     }
+    public void wypiszWykladowcow(){
+        for(int i=0; i<uczelnia.size(); i++){
+            if(uczelnia.get(i) instanceof PracownikBadawczoDydaktyczny){
+                System.out.println(uczelnia.get(i));
+            }
+        }
+    }
     public ArrayList<Student> wyszukajStudenta(String nazwaPola, String wartosc) {
         ArrayList<Student> wyniki = new ArrayList<>();
         for (Osoba osoba : uczelnia) {
@@ -66,6 +73,11 @@ public class Uczelnia{
                         break;
                     case "NAZWISKO":
                         if (student.getNazwisko().equalsIgnoreCase(wartosc)) {
+                            wyniki.add(student);
+                        }
+                        break;
+                    case "PESEL":
+                        if(student.getPesel().equalsIgnoreCase(wartosc)) {
                             wyniki.add(student);
                         }
                         break;
@@ -116,6 +128,11 @@ public class Uczelnia{
                             wyniki.add(pracownik);
                         }
                         break;
+                    case "PESEL":
+                        if(pracownik.getPesel().equalsIgnoreCase(wartosc)) {
+                            wyniki.add(pracownik);
+                        }
+                        break;
                     case "STAZ":
                         int staz = Integer.parseInt(wartosc);
                         if(pracownik.getStaz()==staz){
@@ -150,14 +167,13 @@ public class Uczelnia{
             PracownikBadawczoDydaktyczny p = (PracownikBadawczoDydaktyczny) k;
         }
         for (int i = 0; i < uczelnia.size(); i++) {
-             {
                 if (uczelnia.get(i).equals(k)) {
                     return true;
                 }
-            }
         }
         return false;
     }
+
     public void add(Osoba osoba) {
         if(!uczelnia.contains(osoba)) {
             uczelnia.add(osoba);

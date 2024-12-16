@@ -1,6 +1,8 @@
 package projekt;
 
-public class Kurs {
+import java.io.Serializable;
+
+public class Kurs implements Serializable {
     private String nazwa;
     private PracownikBadawczoDydaktyczny wykladowca;
     private int ECTS;
