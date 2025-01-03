@@ -1,4 +1,5 @@
 package Komparatory.SortowanieOsob;
+
 import projekt.Osoba;
 
 import java.util.Comparator;
