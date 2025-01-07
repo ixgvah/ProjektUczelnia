@@ -11,7 +11,7 @@ public class UsuwanieSposob1 implements UsunStudenta{
         System.out.println("Podaj pole, po którym chcesz wyszukać studenta/studentów: (imie, nazwisko, rok, indeks)");
         Scanner sc = new Scanner(System.in);
         String pole = sc.nextLine();
-        while(!(pole.equalsIgnoreCase("nazwiski") || pole.equalsIgnoreCase("imie") || pole.equalsIgnoreCase("numer indeksu") || pole.equalsIgnoreCase("rok"))){
+        while(!(pole.equalsIgnoreCase("nazwisko") || pole.equalsIgnoreCase("imie") || pole.equalsIgnoreCase("numer indeksu") || pole.equalsIgnoreCase("rok"))){
             System.out.println("Niepoprawne pole, sprobuj ponownie");
             pole = sc.nextLine();
         }

@@ -24,5 +24,6 @@ public class DodaniePracownikaAdministracyjnego implements DodawanieObiektow {
         int liczbeNadgodzin = sc.nextInt();
         PracownikAdministracyjny p1 = new PracownikAdministracyjny(imie, nazwisko, pesel, stanowisko, staz, pensja, liczbeNadgodzin);
         Uczelnia.getInstance().add(p1);
+        System.out.println("Utworzono nowego pracownika. ");
     }
 }

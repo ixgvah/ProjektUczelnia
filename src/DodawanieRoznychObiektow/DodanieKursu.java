@@ -28,5 +28,6 @@ public class DodanieKursu implements DodawanieObiektow {
         System.out.println("Podaj ilosc puntkow ECTS. ");
         int ECTS = sc.nextInt();
         Kurs k = new Kurs(nazwa, p, ECTS);
+        System.out.println("Utworzono nowy kurs. ");
     }
 }

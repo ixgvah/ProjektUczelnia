@@ -24,6 +24,7 @@ public class DodaniePracownikaBadawczoDydaktycznego implements DodawanieObiektow
         int liczbaPublikacji = sc.nextInt();
         PracownikBadawczoDydaktyczny pracownik = new PracownikBadawczoDydaktyczny(imie, nazwisko, pesel, stanowisko, staz, pensja, liczbaPublikacji);
         Uczelnia.getInstance().add(pracownik);
+        System.out.println("Dodano nowego pracownika");
 
     }
 }

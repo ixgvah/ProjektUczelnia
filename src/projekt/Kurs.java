@@ -79,8 +79,9 @@ public class Kurs implements Serializable, Subject {
 
     @Override
     public void notifyObservers() {
-        for(Student student : studenci) {
+        for (Student student : studenci) {
             student.update();
         }
     }
 }
+

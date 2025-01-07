@@ -61,11 +61,7 @@ public class Student extends Osoba implements Observer {
         this.wybraneKursy = wybraneKursy;
     }
     public String toString() {
-        String kursyStudenta="";
-        for(Kurs kurs: wybraneKursy){
-            kursyStudenta+=kurs.getNazwa()+"; ";
-        }
-        return super.toString() + ", indeks: " + indeks + ", rok: " + rok + ", czy student z erasmusa: " + erasmus + ", stopien: " + stopien + ", stacjonarnie: " + stacjonarnie + ", kursy: " + kursyStudenta;
+        return super.toString() + ", indeks: " + indeks + ", rok: " + rok + ", czy student z erasmusa: " + erasmus + ", stopien: " + stopien + ", stacjonarnie: " + stacjonarnie + ", kursy: " + getWybraneKursy();
     }
 
     public void dodanieKursu(Kurs k){
@@ -76,10 +72,11 @@ public class Student extends Osoba implements Observer {
         k.registerObserver(this);
     }
     public void usunKursZWybranych(Kurs k){
-        if(wybraneKursy.contains(k)){
+        if(getWybraneKursy().contains(k)){
             wybraneKursy.remove(k);
         }
     }
+
     public void update(){
         System.out.println("Dzień dobry " + imie + "!. Wyznaczono datę egzaminu z jednego z wybranych kursów. ");
     }

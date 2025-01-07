@@ -90,6 +90,7 @@ public class Uczelnia{
                         if(Integer.toString(student.getRok()).equals(wartosc)) {
                             wyniki.add(student);
                         }
+                        break;
                     case "NAZWA KURSU":
                         for(Kurs kurs: student.getWybraneKursy()){
                             if(kurs.getNazwa().equals(wartosc)) {
@@ -133,7 +134,7 @@ public class Uczelnia{
                             wyniki.add(pracownik);
                         }
                         break;
-                    case "STAZ":
+                    case "STAZ PRACY":
                         int staz = Integer.parseInt(wartosc);
                         if(pracownik.getStaz()==staz){
                             wyniki.add(pracownik);

@@ -1,6 +1,7 @@
 package Menu;
 
 import Komparatory.SortowanieKursow.PorownanieECTS;
+import Komparatory.SortowanieKursow.PorownanieNazwiskaProwadzacego;
 import Komparatory.SortowanieOsob.PorownanieNazwisko;
 import Komparatory.SortowanieOsob.PorownanieNazwiskoImie;
 import Komparatory.SortowanieOsob.PorownanieNazwiskoWiek;
@@ -33,26 +34,16 @@ public class MenuSortowania implements Menu{
             case "3":
                 Collections.sort(Uczelnia.getInstance().getUczelnia(), new PorownanieNazwiskoWiek());
                 break;
-            case "4":
-                Collections.sort(Kursy.getInstance().getKursy(), new PorownanieECTS());
-                break;
             case "5":
+                Collections.sort(Kursy.getInstance().getKursy(), new PorownanieNazwiskaProwadzacego());
+                break;
+            case "4":
                 Collections.sort(Kursy.getInstance().getKursy(), new PorownanieECTS());
                 break;
             default:
                 System.out.println("Problem");
                 break;
         }
-        System.out.println("Posortowana lista: ");
-        if(wynik!="4" && wynik !="5"){
-            for(Osoba o: Uczelnia.getInstance().getUczelnia()){
-                System.out.println(o);
-            }
-        }
-        else{
-            for(Kurs k: Kursy.getInstance().getKursy()){
-                System.out.println(k);
-            }
-        }
+
     }
 }

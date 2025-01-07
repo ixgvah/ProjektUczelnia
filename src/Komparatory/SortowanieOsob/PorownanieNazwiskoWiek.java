@@ -10,7 +10,7 @@ public class PorownanieNazwiskoWiek implements Comparator<Osoba> {
         if(wynik == 0){
             String wiek1=String.valueOf(o1.getWiek());
             String wiek2= String.valueOf(o2.getWiek());
-            return -1 * wiek1.compareTo(wiek2);
+            return -1*wiek1.compareTo(wiek2);
         }
         return wynik;
     }

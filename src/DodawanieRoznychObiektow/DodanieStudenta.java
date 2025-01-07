@@ -26,6 +26,7 @@ public class DodanieStudenta implements DodawanieObiektow {
         boolean stacjonarnie = sc.nextBoolean();
         Student student1 =  new Student(imie, nazwisko, pesel, indeks, rok, erasmus, stopien, stacjonarnie);
         Uczelnia.getInstance().add(student1);
+        System.out.println("Dodano nowego studenta.");
 
     }
 }

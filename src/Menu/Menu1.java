@@ -190,12 +190,13 @@ public abstract class Menu1 implements Menu, DodawanieObiektow {
                                 if(o instanceof Student) {
                                     for (Kurs k : Kursy.getInstance().getKursy()) {
                                         if (k.getNazwa().equalsIgnoreCase(kurs)) {
-                                            ((Student) o).dodanieKursu(k);
+                                            ((Student) o).getWybraneKursy().add(k);
+                                            System.out.println("Wybrano kurs. ");
+                                        }
                                         }
                                     }
                                 }
                             }
-                        }
                         break;
                     case "19":
                         DodanieDaty d = new DodanieDaty();

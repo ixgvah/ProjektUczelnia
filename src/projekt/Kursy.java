@@ -33,11 +33,7 @@ public class Kursy {
         }
 
     }
-    public void usunKursy(Kurs k){
-        if(czyNalezy(k)){
-            kursy.remove(k);
-        }
-    }
+
     public static Kursy getInstance() {
         if (instance == null) {
             instance = new Kursy();
@@ -75,13 +71,18 @@ public class Kursy {
                         wyniki.add(kurs);
                     }
                     break;
-                case "nazwisko prowadzacego": case "nazwisko":
+                case "NAZWISKO PROWADZACEGO":
+                    if(kurs.getWykladowca().getNazwisko().equalsIgnoreCase(wartosc)){
+                        wyniki.add(kurs);
+                    }
+                    break;
+                case "NAZWISKO":
                     if(kurs.getWykladowca().getNazwisko().equalsIgnoreCase(wartosc)){
                         wyniki.add(kurs);
                     }
                     break;
             default:
-                System.out.println("x");
+                System.out.println("Niepoprawne pole");
                 return wyniki;
             }
         }
