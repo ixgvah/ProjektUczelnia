@@ -1,5 +1,7 @@
 package projekt;
 
+import java.util.Objects;
+
 public abstract class PracownikUczelni extends Osoba {
     protected String stanowisko;
     protected int staz; //staz pracy w latach
@@ -36,5 +38,16 @@ public abstract class PracownikUczelni extends Osoba {
     @Override
     public String toString() {
         return super.toString() + ", stanowisko: " + stanowisko + ", staz: " + staz + ", pensja: " + pensja;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true; // Jeśli to ten sam obiekt
+        if (obj == null || getClass() != obj.getClass()) return false; // Null lub różna klasa
+        PracownikUczelni pracownik = (PracownikUczelni) obj;
+        return pesel.equals(pracownik.pesel); // Porównanie wyłącznie na podstawie PESEL
+    }
+    public int hashCode() {
+        return pesel.hashCode();
     }
 }

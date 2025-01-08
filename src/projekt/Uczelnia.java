@@ -32,7 +32,7 @@ public class Uczelnia{
     }
 
     public String toString(){
-        String s = "Osoby znajdujace sie w bazie uczelni: \n";
+        String s = " ";
         for(Osoba o: uczelnia){
             s+=o.toString()+"\n";
         }
@@ -176,9 +176,7 @@ public class Uczelnia{
     }
 
     public void add(Osoba osoba) {
-        if(!uczelnia.contains(osoba)) {
-            uczelnia.add(osoba);
-        }
+        uczelnia.add(osoba);
     }
 
     public void usunOsobe(Osoba o){

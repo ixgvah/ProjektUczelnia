@@ -3,7 +3,6 @@ package projekt;
 import Menu.*;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -50,7 +49,6 @@ public class Main {
 //        PracownikBadawczoDydaktyczny p3 = new PracownikBadawczoDydaktyczny("Edmund", "Mazur", "73070143133", "wykładowca", 30, 7500, 45);
 //        PracownikBadawczoDydaktyczny p4 = new PracownikBadawczoDydaktyczny("Adelajda", "Pawlik", "89042534845", "wykładowca", 5, 3000, 3);
 //        PracownikBadawczoDydaktyczny p5 = new PracownikBadawczoDydaktyczny("Oleh", "Grabowski", "55101494391", "wykładowca", 30, 8000, 300);
-//        Student s1 = new Student("Iga", "Posturzyńska", "06262006124", "873249823", 3, true, 2, true);
 //        Student s2 = new Student("Michael", "Laskowski", "04273013479", "23846234", 3, true, 2, true);
 //        Student s3 = new Student("Marzanna", "Ostrowska", "01293009589", "73236", 1, false, 2, true );
 //        Student s4 = new Student("Cecylia", "Wójtowicz", "01293009589", "236432678", 2, false, 2, true );
@@ -61,12 +59,12 @@ public class Main {
 //        uczelnia.add(p4);
 //        uczelnia.add(p5);
 //        Kurs k1 = new Kurs("Analiza", p1, 10);
-//        Kurs k2 = new Kurs("Algebra", p2, 8);
-//        Kurs k3 = new Kurs("Logika", p3, 7);
-//        Kurs k4 = new Kurs("PSIO", p4, 6);
-//        Kurs k5 = new Kurs("OSK", p5, 5);
-//        Kurs k6 = new Kurs("Fizyka", p1, 4);
-//        uczelnia.add(s1);
+////        Kurs k2 = new Kurs("Algebra", p2, 8);
+////        Kurs k3 = new Kurs("Logika", p3, 7);
+////        Kurs k4 = new Kurs("PSIO", p4, 6);
+////        Kurs k5 = new Kurs("OSK", p5, 5);
+////        Kurs k6 = new Kurs("Fizyka", p1, 4);
+////        uczelnia.add(s1);
 //        uczelnia.add(s2);
 //        uczelnia.add(s3);
 //        uczelnia.add(s4);
@@ -78,7 +76,7 @@ public class Main {
 //        s2.dodanieKursu(k5);
 //        s3.dodanieKursu(k6);
         System.out.println("Wykonywanie programu możesz przerwac w każdej chwili wisująć STOP");
-        Menu menu = new Menu1() {
+        Menu menu = new MenuGlowne() {
             @Override
             public void dodajObiekt() {
 

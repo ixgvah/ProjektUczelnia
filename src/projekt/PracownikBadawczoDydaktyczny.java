@@ -1,5 +1,7 @@
 package projekt;
 
+import java.util.Objects;
+
 public class PracownikBadawczoDydaktyczny extends PracownikUczelni {
     private int liczbaPublikacji;
 
@@ -23,4 +25,5 @@ public class PracownikBadawczoDydaktyczny extends PracownikUczelni {
     public String toString() {
         return super.toString() + ", liczba publikacji: " + liczbaPublikacji;
     }
+
 }

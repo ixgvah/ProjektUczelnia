@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Comparator;
+import java.util.Objects;
 
 public abstract class Osoba implements Serializable{
     protected String imie;
@@ -93,6 +94,10 @@ public abstract class Osoba implements Serializable{
 
     public String toString() {
         return "imie: " + imie + ", nazwisko: " + nazwisko + ", pesel: " + pesel + ", wiek: " + wiek + ", plec: " + plec;
+    }
+
+    public int hashCode(){
+        return 0;
     }
 
 

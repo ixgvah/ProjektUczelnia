@@ -81,4 +81,17 @@ public class Student extends Osoba implements Observer {
         System.out.println("Dzień dobry " + imie + "!. Wyznaczono datę egzaminu z jednego z wybranych kursów. ");
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Student){
+            obj = (Student) obj;
+            return ((Student) obj).getIndeks().equals(this.getIndeks());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return indeks.hashCode();
+    }
 }

@@ -1,5 +1,7 @@
 package projekt;
 
+import java.util.Objects;
+
 public class PracownikAdministracyjny extends PracownikUczelni {
     private int liczbaNadgodzin;
 
@@ -16,4 +18,5 @@ public class PracownikAdministracyjny extends PracownikUczelni {
     public String toString() {
         return super.toString() + ", liczba nadgodzin: " + liczbaNadgodzin;
     }
+
 }
