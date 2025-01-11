@@ -1,5 +1,6 @@
 package projekt;
 
+import GUI.MainFrame;
 import Menu.*;
 
 import java.io.*;
@@ -45,19 +46,20 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        System.out.println("Wykonywanie programu możesz przerwac w każdej chwili wisująć STOP");
-        Menu menu = new MenuGlowne() {
-            @Override
-            public void dodajObiekt() {
+//        System.out.println("Wykonywanie programu możesz przerwac w każdej chwili wisująć STOP");
+//        Menu menu = new MenuGlowne() {
+//            @Override
+//            public void dodajObiekt() {
+//
+//            }
+//
+//            public void wyswietlMenu() {
+//                super.wyswietlMenu();
+//            }
+//        };
+//
+//        menu.wyswietlMenu();
+        MainFrame mf = new MainFrame();
 
-            }
-
-            public void wyswietlMenu() {
-                super.wyswietlMenu();
-            }
-        };
-
-        menu.wyswietlMenu();
     }
-
 }
