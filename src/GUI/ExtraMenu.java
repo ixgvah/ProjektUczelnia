@@ -1,8 +1,6 @@
 package GUI;
 
-import javax.naming.Name;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 
@@ -60,7 +58,16 @@ public class ExtraMenu extends JPanel {
         b4.setPreferredSize(new Dimension(300, 50));
 
         this.add(Box.createHorizontalGlue());
+        b1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b1.setAction(() -> {
+            ResultPanel.getInstance().tworzenieStudenta();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b1);
+        b2.setAction(() -> {
+            ResultPanel.getInstance().tworzeniPracownika();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(Box.createHorizontalStrut(10));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(b2);

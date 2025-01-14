@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
         MainPanel mp = new MainPanel(extraMenu); // Przekazujemy instancję extraMenu
         this.add(mp, BorderLayout.CENTER);
 
+
         this.setVisible(true);
     }
 }

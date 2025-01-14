@@ -1,12 +1,9 @@
 package GUI;
 
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 
-class MenuLeftPanel extends JPanel {
+public class MenuLeftPanel extends JPanel {
     public MenuLeftPanel(ExtraMenu extraMenu) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(249, 212, 212));
