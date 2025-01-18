@@ -71,12 +71,7 @@ public class Kursy {
                         wyniki.add(kurs);
                     }
                     break;
-                case "NAZWISKO PROWADZACEGO":
-                    if(kurs.getWykladowca().getNazwisko().equalsIgnoreCase(wartosc)){
-                        wyniki.add(kurs);
-                    }
-                    break;
-                case "NAZWISKO":
+                case "NAZWISKO PROWADZACEGO": case "NAZWISKO WYKŁADOWCY": case "NAZWISKO PROWADZĄCEGO": case "NAZWISKO":
                     if(kurs.getWykladowca().getNazwisko().equalsIgnoreCase(wartosc)){
                         wyniki.add(kurs);
                     }

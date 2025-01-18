@@ -23,15 +23,31 @@ public class ExtraMenu extends JPanel {
 
         // Dodanie przycisków do panelu
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b1.setAction(() -> {
+            ResultPanel.getInstance().wyswietlOsoby();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b1);
         this.add(Box.createHorizontalStrut(10));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b2.setAction(() -> {
+            ResultPanel.getInstance().wyswietlStudentow();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b2);
         this.add(Box.createHorizontalStrut(10)); // Odstęp między przyciskami
+        b3.setAction(() -> {
+            ResultPanel.getInstance().wyswietlPracownikow();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b3);
         b3.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createHorizontalStrut(10)); // Odstęp po ostatnim przycisku
         b4.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b4.setAction(() -> {
+            ResultPanel.getInstance().wyswietlKursy();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b4);
         this.add(Box.createHorizontalStrut(10));
 
@@ -48,14 +64,6 @@ public class ExtraMenu extends JPanel {
         NameButton b2 = new NameButton("Pracownika b.dydaktycznego");
         NameButton b3 = new NameButton("Pracownika administracyjnego");
         NameButton b4 = new NameButton("Kursy");
-        b1.setMinimumSize(new Dimension(300, 50));
-        b1.setPreferredSize(new Dimension(300, 50));
-        b2.setMinimumSize(new Dimension(300, 50));
-        b2.setPreferredSize(new Dimension(300, 50));
-        b3.setMinimumSize(new Dimension(300, 50));
-        b3.setPreferredSize(new Dimension(300, 50));
-        b4.setMinimumSize(new Dimension(300, 50));
-        b4.setPreferredSize(new Dimension(300, 50));
 
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -71,11 +79,19 @@ public class ExtraMenu extends JPanel {
         this.add(Box.createHorizontalStrut(10));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(b2);
-        this.add(Box.createHorizontalStrut(10)); // Odstęp między przyciskami
+        this.add(Box.createHorizontalStrut(10));// Odstęp między przyciskami
+        b3.setAction(() -> {
+            ResultPanel.getInstance().tworzeniePracownikaAdministracyjnego();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b3);
         b3.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createHorizontalStrut(10)); // Odstęp po ostatnim przycisku
         b4.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b4.setAction(()-> {
+            ResultPanel.getInstance().tworzenieKursu();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b4);
 
         this.revalidate();
@@ -88,20 +104,26 @@ public class ExtraMenu extends JPanel {
         NameButton b1 = new NameButton("Studenta");
         NameButton b2 = new NameButton("Pracownika");
         NameButton b3 = new NameButton("Kurs");
-        b1.setMinimumSize(new Dimension(300, 50));
-        b1.setPreferredSize(new Dimension(300, 50));
-        b2.setMinimumSize(new Dimension(300, 50));
-        b2.setPreferredSize(new Dimension(300, 50));
-        b3.setMinimumSize(new Dimension(300, 50));
-        b3.setPreferredSize(new Dimension(300, 50));
 
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b1.setAction(() -> {
+            ResultPanel.getInstance().wyszukiwanieStudentow();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b1);
         this.add(Box.createHorizontalStrut(50));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b2.setAction(() -> {
+            ResultPanel.getInstance().wyszukiwaniePracownikow();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b2);
         this.add(Box.createHorizontalStrut(50));
+        b3.setAction(() -> {
+            ResultPanel.getInstance().wyszukiwanieKursow();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b3);
         b3.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createHorizontalGlue());
@@ -116,17 +138,20 @@ public class ExtraMenu extends JPanel {
 
         NameButton b1 = new NameButton("Osoby");
         NameButton b2 = new NameButton("Kursy");
-        b1.setMinimumSize(new Dimension(300, 50));
-        b1.setPreferredSize(new Dimension(300, 50));
-        b2.setMinimumSize(new Dimension(300, 50));
-        b2.setPreferredSize(new Dimension(300, 50));
-
 
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b1.setAction(() -> {
+            ResultPanel.getInstance().zapiszOsoby();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b1);
         this.add(Box.createHorizontalStrut(50));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b2.setAction(() -> {
+            ResultPanel.getInstance().zapiszKursy();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b2);
         this.add(Box.createHorizontalGlue());
 
@@ -141,12 +166,6 @@ public class ExtraMenu extends JPanel {
         NameButton b1 = new NameButton("Studenta");
         NameButton b2 = new NameButton("Pracownika");
         NameButton b3 = new NameButton("Kursy");
-        b1.setMinimumSize(new Dimension(300, 50));
-        b1.setPreferredSize(new Dimension(300, 50));
-        b2.setMinimumSize(new Dimension(300, 50));
-        b2.setPreferredSize(new Dimension(300, 50));
-        b3.setMinimumSize(new Dimension(300, 50));
-        b3.setPreferredSize(new Dimension(300, 50));
 
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);// Odstęp przed pierwszym przyciskiem
@@ -177,10 +196,7 @@ public class ExtraMenu extends JPanel {
 
         NameButton b1 = new NameButton("Osoby");
         NameButton b2 = new NameButton("Kursy");
-        b1.setMinimumSize(new Dimension(300, 50));
-        b1.setPreferredSize(new Dimension(300, 50));
-        b2.setMinimumSize(new Dimension(300, 50));
-        b2.setPreferredSize(new Dimension(300, 50));
+
         b1.setAction(() -> {
             this.wyswietlMenuDlaSortowaniaOsob();
         });
@@ -208,11 +224,6 @@ public class ExtraMenu extends JPanel {
 
         NameButton b1 = new NameButton("Studenci");
         NameButton b2 = new NameButton("Pracownicy");
-        b1.setMinimumSize(new Dimension(300, 50));
-        b1.setPreferredSize(new Dimension(300, 50));
-        b2.setMinimumSize(new Dimension(300, 50));
-        b2.setPreferredSize(new Dimension(300, 50));
-
 
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -236,12 +247,6 @@ public class ExtraMenu extends JPanel {
         NameButton b1 = new NameButton("po nazwisku");
         NameButton b2 = new NameButton("po nazwisku i imieniu");
         NameButton b3 = new NameButton("po nazwisku i wieku");
-        b1.setMinimumSize(new Dimension(300, 50));
-        b1.setPreferredSize(new Dimension(300, 50));
-        b2.setMinimumSize(new Dimension(300, 50));
-        b2.setPreferredSize(new Dimension(300, 50));
-        b3.setMinimumSize(new Dimension(300, 50));
-        b3.setPreferredSize(new Dimension(300, 50));
 
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);// Odstęp przed pierwszym przyciskiem
@@ -264,10 +269,6 @@ public class ExtraMenu extends JPanel {
 
         NameButton b1 = new NameButton("po liczbie punktów ECTS");
         NameButton b2 = new NameButton("po nazwisku prowadzącego");
-        b1.setMinimumSize(new Dimension(300, 50));
-        b1.setPreferredSize(new Dimension(300, 50));
-        b2.setMinimumSize(new Dimension(300, 50));
-        b2.setPreferredSize(new Dimension(300, 50));
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);// Odstęp przed pierwszym przyciskiem
         this.add(b1);
