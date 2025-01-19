@@ -1,6 +1,7 @@
 package projekt;
 
 import GUI.MainFrame;
+import Menu.MenuGlowne;
 import deserializacja.deserializacjaKursow;
 import deserializacja.deserializacjaOsob;
 
@@ -14,7 +15,7 @@ public class Main {
         sk.wykonajDeserializacje();
 
 //        System.out.println("Wykonywanie programu możesz przerwac w każdej chwili wisująć STOP");
-//        Menu menu = new MenuGlowne() {
+//        MenuGlowne menu = new MenuGlowne() {
 //            @Override
 //            public void dodajObiekt() {
 //
@@ -26,7 +27,7 @@ public class Main {
 //        };
 //
 //        menu.wyswietlMenu();
-//        MainFrame mf = new MainFrame();
+        MainFrame mf = new MainFrame();
 
     }
 }
