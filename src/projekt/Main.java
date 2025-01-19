@@ -26,7 +26,7 @@ public class Main {
 //        };
 //
 //        menu.wyswietlMenu();
-        MainFrame mf = new MainFrame();
+//        MainFrame mf = new MainFrame();
 
     }
 }

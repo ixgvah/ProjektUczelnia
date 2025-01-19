@@ -169,6 +169,10 @@ public class ExtraMenu extends JPanel {
 
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);// Odstęp przed pierwszym przyciskiem
+        b1.setAction(() -> {
+            ResultPanel.getInstance().usunStudenta();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b1);
         this.add(Box.createHorizontalStrut(50));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);

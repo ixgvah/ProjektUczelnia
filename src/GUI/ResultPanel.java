@@ -8,6 +8,7 @@ import deserializacja.deserializacjaOsob;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ResultPanel extends JPanel {
     private static ResultPanel instance;
@@ -571,6 +572,62 @@ public class ResultPanel extends JPanel {
         this.add(wynik);
         this.add(Box.createVerticalGlue()); // Wyrównanie na osi Y
         this.add(Box.createHorizontalGlue()); // Wyrównanie na osi X
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void usunStudenta(){
+        this.removeAll();
+        this.removeAll();
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBackground(new Color(236, 231, 231));
+        JLabel polecenie = new JLabel("Podaj pole, po którym chcesz wybrać studentów do usunięcia: ");
+        polecenie.setBackground(new Color(247, 239, 239));
+        polecenie.setPreferredSize(new Dimension(100, 20));
+        polecenie.setAlignmentX(Component.LEFT_ALIGNMENT);
+        polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+        this.add(polecenie);
+        this.add(Box.createVerticalStrut(10));
+        wyborPolaDoWyszukiwaniaStudent pole = new wyborPolaDoWyszukiwaniaStudent();
+        this.add(pole);
+        this.add(Box.createVerticalStrut(10));
+        JLabel polecenie2 = new JLabel("Podaj wartość wybranego pola: ");
+        polecenie2.setBackground(new Color(247, 239, 239));
+        polecenie2.setPreferredSize(new Dimension(100, 20));
+        polecenie2.setAlignmentX(Component.LEFT_ALIGNMENT);
+        polecenie2.setFont(new Font("Serif", Font.BOLD, 15));
+        this.add(polecenie2);
+        this.add(Box.createVerticalStrut(10));
+        TekstWyniku wartosc = new TekstWyniku();
+        this.add(wartosc);
+        this.add(Box.createVerticalStrut(50));
+
+        JButton dodaj = new JButton("Usuń");
+        dodaj.setBackground(new Color(204, 255, 204));
+        dodaj.setForeground(new Color(0, 153, 0));
+        dodaj.setFocusable(false);
+        dodaj.setAlignmentX(Component.LEFT_ALIGNMENT);
+        dodaj.addActionListener(e -> {
+            if(Uczelnia.getInstance().wyszukajStudenta((String) pole.getSelectedItem(), wartosc.getText()) == null) {
+                JLabel wynik = new JLabel("Nie znaleziono studenta. ");
+                wynik.setBackground(new Color(247, 239, 239));
+                wynik.setPreferredSize(new Dimension(100, 20));
+                wynik.setAlignmentX(Component.CENTER_ALIGNMENT);
+                wynik.setFont(new Font("Serif", Font.BOLD, 30));
+                this.add(wynik);
+            }
+            else{
+                JLabel wynik = new JLabel("Usunięto studenta/studentów spełniających wymagania. ");
+                for(Student s: Uczelnia.getInstance().wyszukajStudenta((String) pole.getSelectedItem(), wartosc.getText())) {
+                    Uczelnia.getInstance().usunOsobe(s);
+                }
+            }
+            this.revalidate();
+            this.repaint();
+            this.add(Box.createVerticalStrut(50));
+        });
+        this.add(dodaj);
         this.revalidate();
         this.repaint();
     }
