@@ -165,7 +165,6 @@ public class ExtraMenu extends JPanel {
 
         NameButton b1 = new NameButton("Studenta");
         NameButton b2 = new NameButton("Pracownika");
-        NameButton b3 = new NameButton("Kursy");
 
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);// Odstęp przed pierwszym przyciskiem
@@ -176,10 +175,12 @@ public class ExtraMenu extends JPanel {
         this.add(b1);
         this.add(Box.createHorizontalStrut(50));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b2.setAction(() -> {
+            ResultPanel.getInstance().usunWykladowcow();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b2);
         this.add(Box.createHorizontalStrut(50)); // Odstęp między przyciskami
-        this.add(b3);
-        b3.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createHorizontalGlue());
 
         this.revalidate();
@@ -188,10 +189,14 @@ public class ExtraMenu extends JPanel {
     public void updateDlaZapisywaniaNaKurs(){
         this.removeAll();
         this.repaint();
+        ResultPanel.getInstance().zapiszNaKurs();
+        ResultPanel.getInstance().setVisible(true);
     }
     public void updateDlaDatyEgzaminu(){
         this.removeAll();
         this.repaint();
+        ResultPanel.getInstance().wyznaczDate();
+        ResultPanel.getInstance().setVisible(true);
     }
 
     public void updateDlaSortowania() {
@@ -230,10 +235,18 @@ public class ExtraMenu extends JPanel {
         NameButton b2 = new NameButton("Pracownicy");
 
         this.add(Box.createHorizontalGlue());
+        b1.setAction(() -> {
+            ResultPanel.getInstance().duplikatyStudenci();
+            ResultPanel.getInstance().setVisible(true);
+        });
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(b1);
         this.add(Box.createHorizontalStrut(50));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b2.setAction(() -> {
+            ResultPanel.getInstance().duplikatyPracownicy();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b2);
         this.add(Box.createHorizontalGlue());
 
@@ -253,12 +266,24 @@ public class ExtraMenu extends JPanel {
         NameButton b3 = new NameButton("po nazwisku i wieku");
 
         this.add(Box.createHorizontalGlue());
-        b1.setAlignmentX(Component.CENTER_ALIGNMENT);// Odstęp przed pierwszym przyciskiem
+        b1.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b1.setAction(() -> {
+            ResultPanel.getInstance().sortujNazwiska();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b1);
         this.add(Box.createHorizontalStrut(50));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b2.setAction(() -> {
+            ResultPanel.getInstance().sortujNazwiskoImie();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b2);
-        this.add(Box.createHorizontalStrut(50)); // Odstęp między przyciskami
+        this.add(Box.createHorizontalStrut(50));
+        b3.setAction(() -> {
+            ResultPanel.getInstance().sortujNazwiskaWiek();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b3);
         b3.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.add(Box.createHorizontalGlue());
@@ -275,9 +300,17 @@ public class ExtraMenu extends JPanel {
         NameButton b2 = new NameButton("po nazwisku prowadzącego");
         this.add(Box.createHorizontalGlue());
         b1.setAlignmentX(Component.CENTER_ALIGNMENT);// Odstęp przed pierwszym przyciskiem
+        b1.setAction(() -> {
+            ResultPanel.getInstance().sortujECTS();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b1);
         this.add(Box.createHorizontalStrut(50));
         b2.setAlignmentX(Component.CENTER_ALIGNMENT);
+        b2.setAction(() -> {
+            ResultPanel.getInstance().sortujNazwiskoProwadzacego();
+            ResultPanel.getInstance().setVisible(true);
+        });
         this.add(b2);
         this.add(Box.createHorizontalStrut(50)); // Odstęp między przyciskami
         this.add(Box.createHorizontalGlue());

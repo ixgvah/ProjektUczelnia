@@ -45,7 +45,7 @@ public class Kurs implements Serializable, Subject {
     }
     public void setData(LocalDate data){
         this.dataEgzaminu = data;
-        notifyObservers();
+        //notifyObservers();
     }
     public LocalDate getData() {
         return dataEgzaminu;

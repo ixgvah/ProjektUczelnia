@@ -92,6 +92,6 @@ public class Student extends Osoba implements Observer {
 
     @Override
     public int hashCode() {
-        return indeks.hashCode();
+        return getIndeks().hashCode();
     }
 }

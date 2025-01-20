@@ -1,14 +1,22 @@
 package GUI;
 
-import Serializacja.SerializacjaKursow;
-import Serializacja.SerializacjaOsob;
+import Komparatory.SortowanieKursow.PorownanieECTS;
+import Komparatory.SortowanieKursow.PorownanieNazwiskaProwadzacego;
+import Komparatory.SortowanieOsob.PorownanieNazwisko;
+import Komparatory.SortowanieOsob.PorownanieNazwiskoImie;
+import Komparatory.SortowanieOsob.PorownanieNazwiskoWiek;
+import UsuwanieHashSetami.usuwanieDuplikatowStudenci;
 import projekt.*;
-import deserializacja.deserializacjaKursow;
-import deserializacja.deserializacjaOsob;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 public class ResultPanel extends JPanel {
     private static ResultPanel instance;
@@ -30,15 +38,10 @@ public class ResultPanel extends JPanel {
         this.removeAll();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(236, 231, 231));
-        for(Osoba o: Uczelnia.getInstance().getUczelnia()){
-            JLabel osoba = new JLabel(o.toString());
-            osoba.setBackground(new Color(247, 239, 239));
-            osoba.setPreferredSize(new Dimension(100, 20));
-            osoba.setAlignmentX(Component.LEFT_ALIGNMENT);
-            osoba.setFont(new Font("Serif", Font.BOLD, 15));
-            this.add(osoba);
-            this.add(Box.createVerticalStrut(10));
-        }
+        TabelkaOsoby to = new TabelkaOsoby();
+        JScrollPane sp = new JScrollPane(to);
+        this.add(sp);
+        this.add(Box.createVerticalStrut(10));
         this.revalidate();
         this.repaint();
     }
@@ -47,17 +50,9 @@ public class ResultPanel extends JPanel {
         this.removeAll();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(236, 231, 231));
-        for(Osoba o: Uczelnia.getInstance().getUczelnia()){
-            if(o instanceof Student){
-                JLabel osoba = new JLabel(o.toString());
-                osoba.setBackground(new Color(247, 239, 239));
-                osoba.setPreferredSize(new Dimension(100, 20));
-                osoba.setAlignmentX(Component.LEFT_ALIGNMENT);
-                osoba.setFont(new Font("Serif", Font.BOLD, 15));
-                this.add(osoba);
-                this.add(Box.createVerticalStrut(10));
-            }
-        }
+        TabelkaStudenci ts = new TabelkaStudenci();
+        JScrollPane sp = new JScrollPane(ts);
+        this.add(sp);
         this.revalidate();
         this.repaint();
     }
@@ -66,17 +61,9 @@ public class ResultPanel extends JPanel {
         this.removeAll();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(236, 231, 231));
-        for(Osoba o: Uczelnia.getInstance().getUczelnia()){
-            if(o instanceof PracownikUczelni){
-                JLabel osoba = new JLabel(o.toString());
-                osoba.setBackground(new Color(247, 239, 239));
-                osoba.setPreferredSize(new Dimension(100, 20));
-                osoba.setAlignmentX(Component.LEFT_ALIGNMENT);
-                osoba.setFont(new Font("Serif", Font.BOLD, 15));
-                this.add(osoba);
-                this.add(Box.createVerticalStrut(10));
-            }
-        }
+        TabelkaPracownicy tp = new TabelkaPracownicy();
+        JScrollPane sp = new JScrollPane(tp);
+        this.add(sp);
         this.revalidate();
         this.repaint();
     }
@@ -85,15 +72,9 @@ public class ResultPanel extends JPanel {
         this.removeAll();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(236, 231, 231));
-        for(Kurs k: Kursy.getInstance().getKursy()){
-            JLabel kurs = new JLabel(k.toString());
-            kurs.setBackground(new Color(247, 239, 239));
-            kurs.setPreferredSize(new Dimension(100, 20));
-            kurs.setAlignmentX(Component.LEFT_ALIGNMENT);
-            kurs.setFont(new Font("Serif", Font.BOLD, 15));
-            this.add(kurs);
-            this.add(Box.createVerticalStrut(10));
-        }
+        TabelkaKursy tk = new TabelkaKursy();
+        JScrollPane sp = new JScrollPane(tk);
+        this.add(sp);
         this.revalidate();
         this.repaint();
     }
@@ -537,20 +518,42 @@ public class ResultPanel extends JPanel {
     }
     public void zapiszOsoby(){
         this.removeAll();
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        SerializacjaOsob so = new SerializacjaOsob();
-        so.wykonajSerializacje();
-        JLabel wynik = new JLabel("Pomyślnie zapisano osoby");
-        wynik.setBackground(new Color(247, 239, 239));
-        wynik.setPreferredSize(new Dimension(100, 20));
-        wynik.setAlignmentX(Component.CENTER_ALIGNMENT);
-        wynik.setFont(new Font("Serif", Font.BOLD, 30));
-
-        this.add(Box.createVerticalGlue()); // Wyrównanie na osi Y
-        this.add(Box.createHorizontalGlue()); // Wyrównanie na osi X
-        this.add(wynik);
-        this.add(Box.createVerticalGlue()); // Wyrównanie na osi Y
-        this.add(Box.createHorizontalGlue()); // Wyrównanie na osi X
+        JLabel polecenie = new JLabel("Wciśnij przycisk aby zapisać");
+        polecenie.setBackground(new Color(247, 239, 239));
+        polecenie.setPreferredSize(new Dimension(100, 20));
+        polecenie.setAlignmentX(Component.LEFT_ALIGNMENT);
+        polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+        this.add(polecenie);
+        this.add(Box.createVerticalStrut(10));
+        JButton przycisk = new JButton("Zapisz");
+        przycisk.setBackground(new Color(204, 255, 204));
+        przycisk.setForeground(new Color(0, 153, 0));
+        przycisk.setFocusable(false);
+        przycisk.setAlignmentX(Component.LEFT_ALIGNMENT);
+        przycisk.addActionListener(e -> {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Osoby.txt"))) {
+                for(Osoba o: Uczelnia.getInstance().getUczelnia()){
+                    oos.writeObject(o);
+                }
+                this.add(Box.createVerticalStrut(50));
+                JLabel wynik = new JLabel("Pomyślnie zapisano osoby");
+                wynik.setBackground(new Color(204, 255, 204));
+                wynik.setForeground(new Color(0, 153, 0));
+                wynik.setPreferredSize(new Dimension(100, 20));
+                wynik.setAlignmentX(Component.LEFT_ALIGNMENT);
+                wynik.setFont(new Font("Serif", Font.BOLD, 20));
+                this.add(wynik);
+                System.out.println("Serializacja zakończona sukcesem. ");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.out.println("Serializacja nie powiodła się. ");
+            }
+            this.revalidate();
+            this.repaint();
+        });
+        this.add(przycisk);
         this.revalidate();
         this.repaint();
     }
@@ -558,30 +561,51 @@ public class ResultPanel extends JPanel {
     public void zapiszKursy(){
         this.removeAll();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        SerializacjaKursow sk = new SerializacjaKursow();
-        sk.wykonajSerializacje();
 
-        JLabel wynik = new JLabel("Pomyślnie zapisano kursy");
-        wynik.setBackground(new Color(247, 239, 239));
-        wynik.setPreferredSize(new Dimension(100, 20));
-        wynik.setAlignmentX(Component.CENTER_ALIGNMENT);
-        wynik.setFont(new Font("Serif", Font.BOLD, 30));
-
-        this.add(Box.createVerticalGlue()); // Wyrównanie na osi Y
-        this.add(Box.createHorizontalGlue()); // Wyrównanie na osi X
-        this.add(wynik);
-        this.add(Box.createVerticalGlue()); // Wyrównanie na osi Y
-        this.add(Box.createHorizontalGlue()); // Wyrównanie na osi X
+        JLabel polecenie = new JLabel("Wciśnij przycisk aby zapisać");
+        polecenie.setBackground(new Color(247, 239, 239));
+        polecenie.setPreferredSize(new Dimension(100, 20));
+        polecenie.setAlignmentX(Component.LEFT_ALIGNMENT);
+        polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+        this.add(polecenie);
+        this.add(Box.createVerticalStrut(10));
+        JButton przycisk = new JButton("Zapisz");
+        przycisk.setBackground(new Color(204, 255, 204));
+        przycisk.setForeground(new Color(0, 153, 0));
+        przycisk.setFocusable(false);
+        przycisk.setAlignmentX(Component.LEFT_ALIGNMENT);
+        przycisk.addActionListener(e -> {
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Kursy.txt"))) {
+                Kursy kursy = Kursy.getInstance();
+                for(int i=0; i<kursy.getKursy().size(); i++){
+                    oos.writeObject(kursy.getKursy().get(i));
+                }
+                this.add(Box.createVerticalStrut(50));
+                JLabel wynik = new JLabel("Pomyślnie zapisano kursy");
+                wynik.setBackground(new Color(204, 255, 204));
+                wynik.setForeground(new Color(0, 153, 0));
+                wynik.setPreferredSize(new Dimension(100, 20));
+                wynik.setAlignmentX(Component.LEFT_ALIGNMENT);
+                wynik.setFont(new Font("Serif", Font.BOLD, 20));
+                this.add(wynik);
+                System.out.println("Serializacja zakończona sukcesem. ");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                System.out.println("Serializacja nie powiodła się. ");
+            }
+            this.revalidate();
+            this.repaint();
+        });
+        this.add(przycisk);
         this.revalidate();
         this.repaint();
     }
 
-    public void usunStudenta(){
+    public void usunStudenta() {
         this.removeAll();
-        this.removeAll();
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(236, 231, 231));
+
         JLabel polecenie = new JLabel("Podaj pole, po którym chcesz wybrać studentów do usunięcia: ");
         polecenie.setBackground(new Color(247, 239, 239));
         polecenie.setPreferredSize(new Dimension(100, 20));
@@ -589,9 +613,11 @@ public class ResultPanel extends JPanel {
         polecenie.setFont(new Font("Serif", Font.BOLD, 15));
         this.add(polecenie);
         this.add(Box.createVerticalStrut(10));
+
         wyborPolaDoWyszukiwaniaStudent pole = new wyborPolaDoWyszukiwaniaStudent();
         this.add(pole);
         this.add(Box.createVerticalStrut(10));
+
         JLabel polecenie2 = new JLabel("Podaj wartość wybranego pola: ");
         polecenie2.setBackground(new Color(247, 239, 239));
         polecenie2.setPreferredSize(new Dimension(100, 20));
@@ -599,35 +625,351 @@ public class ResultPanel extends JPanel {
         polecenie2.setFont(new Font("Serif", Font.BOLD, 15));
         this.add(polecenie2);
         this.add(Box.createVerticalStrut(10));
+
         TekstWyniku wartosc = new TekstWyniku();
         this.add(wartosc);
         this.add(Box.createVerticalStrut(50));
 
-        JButton dodaj = new JButton("Usuń");
-        dodaj.setBackground(new Color(204, 255, 204));
-        dodaj.setForeground(new Color(0, 153, 0));
-        dodaj.setFocusable(false);
-        dodaj.setAlignmentX(Component.LEFT_ALIGNMENT);
-        dodaj.addActionListener(e -> {
-            if(Uczelnia.getInstance().wyszukajStudenta((String) pole.getSelectedItem(), wartosc.getText()) == null) {
-                JLabel wynik = new JLabel("Nie znaleziono studenta. ");
+        JButton usun = new JButton("Usuń");
+        usun.setBackground(new Color(204, 255, 204));
+        usun.setForeground(new Color(0, 153, 0));
+        usun.setFocusable(false);
+        usun.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        usun.addActionListener(e -> {
+            ArrayList<Student> znalezieniStudenci = Uczelnia.getInstance().wyszukajStudenta((String) pole.getSelectedItem(), wartosc.getText());
+
+            if (znalezieniStudenci == null || znalezieniStudenci.isEmpty()) {
+                JLabel wynik = new JLabel("Nie znaleziono studenta.");
                 wynik.setBackground(new Color(247, 239, 239));
                 wynik.setPreferredSize(new Dimension(100, 20));
                 wynik.setAlignmentX(Component.CENTER_ALIGNMENT);
                 wynik.setFont(new Font("Serif", Font.BOLD, 30));
                 this.add(wynik);
-            }
-            else{
-                JLabel wynik = new JLabel("Usunięto studenta/studentów spełniających wymagania. ");
-                for(Student s: Uczelnia.getInstance().wyszukajStudenta((String) pole.getSelectedItem(), wartosc.getText())) {
+            } else {
+                for (Student s : znalezieniStudenci) {
                     Uczelnia.getInstance().usunOsobe(s);
                 }
+                JLabel wynik = new JLabel("Usunięto studenta/studentów spełniających wymagania.");
+                wynik.setBackground(new Color(247, 239, 239));
+                wynik.setPreferredSize(new Dimension(100, 20));
+                wynik.setAlignmentX(Component.LEFT_ALIGNMENT);
+                wynik.setFont(new Font("Serif", Font.BOLD, 30));
+                this.add(wynik);
             }
+
             this.revalidate();
             this.repaint();
-            this.add(Box.createVerticalStrut(50));
         });
-        this.add(dodaj);
+
+        this.add(usun);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void usunWykladowcow(){
+        this.removeAll();
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBackground(new Color(236, 231, 231));
+
+        JLabel polecenie = new JLabel("Podaj pole, po którym chcesz wybrać pracownikow do usunięcia: ");
+        polecenie.setBackground(new Color(247, 239, 239));
+        polecenie.setPreferredSize(new Dimension(100, 20));
+        polecenie.setAlignmentX(Component.LEFT_ALIGNMENT);
+        polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+        this.add(polecenie);
+        this.add(Box.createVerticalStrut(10));
+
+        wyborPolaDoWyszukiwaniaStudent pole = new wyborPolaDoWyszukiwaniaStudent();
+        this.add(pole);
+        this.add(Box.createVerticalStrut(10));
+
+        JLabel polecenie2 = new JLabel("Podaj wartość wybranego pola: ");
+        polecenie2.setBackground(new Color(247, 239, 239));
+        polecenie2.setPreferredSize(new Dimension(100, 20));
+        polecenie2.setAlignmentX(Component.LEFT_ALIGNMENT);
+        polecenie2.setFont(new Font("Serif", Font.BOLD, 15));
+        this.add(polecenie2);
+        this.add(Box.createVerticalStrut(10));
+
+        TekstWyniku wartosc = new TekstWyniku();
+        this.add(wartosc);
+        this.add(Box.createVerticalStrut(50));
+
+        JButton usun = new JButton("Usuń");
+        usun.setBackground(new Color(204, 255, 204));
+        usun.setForeground(new Color(0, 153, 0));
+        usun.setFocusable(false);
+        usun.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        usun.addActionListener(e -> {
+            ArrayList<PracownikUczelni> usuwani = Uczelnia.getInstance().wyszukajPracownika((String) pole.getSelectedItem(), wartosc.getText());
+
+            if (usuwani == null || usuwani.isEmpty()) {
+                JLabel wynik = new JLabel("Nie znaleziono studenta.");
+                wynik.setBackground(new Color(247, 239, 239));
+                wynik.setPreferredSize(new Dimension(100, 20));
+                wynik.setAlignmentX(Component.CENTER_ALIGNMENT);
+                wynik.setFont(new Font("Serif", Font.BOLD, 30));
+                this.add(wynik);
+            } else {
+                for (PracownikUczelni o : usuwani) {
+                    if (o instanceof PracownikBadawczoDydaktyczny) {
+                        for (Osoba s : Uczelnia.getInstance().getUczelnia()) {
+                            if (s instanceof Student) {
+                                Student student = (Student) s;
+
+                                Iterator<Kurs> iterator = student.getWybraneKursy().iterator();
+                                while (iterator.hasNext()) {
+                                    Kurs k = iterator.next();
+                                    if (k.getWykladowca().equals(o)) {
+                                        iterator.remove();
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    Uczelnia.getInstance().getUczelnia().remove(o);
+                }
+                JLabel wynik = new JLabel("Usunięto pracownika/pracownik spełniających wymagania.");
+                wynik.setBackground(new Color(247, 239, 239));
+                wynik.setPreferredSize(new Dimension(100, 20));
+                wynik.setAlignmentX(Component.LEFT_ALIGNMENT);
+                wynik.setFont(new Font("Serif", Font.BOLD, 30));
+                this.add(wynik);
+            }
+
+            this.revalidate();
+            this.repaint();
+        });
+
+        this.add(usun);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void zapiszNaKurs(){
+        this.removeAll();
+        JLabel polecenie = new JLabel("Wybierz studenta, którego chcesz zapisać: ");
+        polecenie.setBackground(new Color(247, 239, 239));
+        polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+        polecenie.setPreferredSize(new Dimension(100, 20));
+        polecenie.setAlignmentX(Component.LEFT_ALIGNMENT);
+        polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+        this.add(polecenie);
+        this.add(Box.createVerticalStrut(10));
+        WyborStudenta student = new WyborStudenta();
+        this.add(student);
+        this.add(Box.createVerticalStrut(10));
+        JLabel polecenie2 = new JLabel("Wybierz kurs, na który chcesz zapisać studenta: ");
+        polecenie2.setBackground(new Color(247, 239, 239));
+        polecenie2.setFont(new Font("Serif", Font.BOLD, 15));
+        polecenie2.setPreferredSize(new Dimension(100, 20));
+        polecenie2.setAlignmentX(Component.LEFT_ALIGNMENT);
+        polecenie2.setFont(new Font("Serif", Font.BOLD, 15));
+        this.add(polecenie2);
+        this.add(Box.createVerticalStrut(10));
+        WyborKursu kurs = new WyborKursu();
+        this.add(kurs);
+        this.add(Box.createVerticalStrut(10));
+        JButton zapisz = new JButton("Zapisz");
+        zapisz.setBackground(new Color(204, 255, 204));
+        zapisz.setForeground(new Color(0, 153, 0));
+        zapisz.setFocusable(false);
+        zapisz.setAlignmentX(Component.LEFT_ALIGNMENT);
+        zapisz.addActionListener(e -> {
+            ((Student)student.getSelectedItem()).dodanieKursu((Kurs)kurs.getSelectedItem());
+
+        });
+        this.add(zapisz);
+        this.revalidate();
+        this.repaint();
+
+    }
+
+    public void wyznaczDate(){
+        this.removeAll();
+
+        JLabel polecenie0 = new JLabel("Wybierz kurs, któremu chcesz przypisać datę: ");
+        polecenie0.setBackground(new Color(247, 239, 239));
+        polecenie0.setFont(new Font("Serif", Font.BOLD, 15));
+        polecenie0.setPreferredSize(new Dimension(100, 20));
+        polecenie0.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.add(polecenie0);
+        this.add(Box.createVerticalStrut(10));
+        WyborKursu kurs = new WyborKursu();
+        this.add(kurs);
+        this.add(Box.createVerticalStrut(10));
+
+
+        JLabel polecenie = new JLabel("Podaj dzień: ");
+        polecenie.setBackground(new Color(247, 239, 239));
+        polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+        polecenie.setPreferredSize(new Dimension(100, 20));
+        polecenie.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.add(polecenie);
+        this.add(Box.createVerticalStrut(10));
+        JTextField dzien = new JTextField();
+        dzien.setPreferredSize(new Dimension(100, 20));
+        dzien.setMaximumSize(new Dimension(100, 20));
+        this.add(dzien);
+
+        JLabel polecenie2 = new JLabel("Podaj miesiąc: ");
+        polecenie2.setBackground(new Color(247, 239, 239));
+        polecenie2.setFont(new Font("Serif", Font.BOLD, 15));
+        polecenie2.setPreferredSize(new Dimension(30, 10));
+        polecenie2.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.add(polecenie2);
+        JTextField miesiac = new JTextField();
+        miesiac.setPreferredSize(new Dimension(100, 20));
+        miesiac.setMaximumSize(new Dimension(100, 20));
+        this.add(miesiac);
+
+        JLabel polecenie3 = new JLabel("Podaj rok: ");
+        polecenie3.setBackground(new Color(247, 239, 239));
+        polecenie3.setFont(new Font("Serif", Font.BOLD, 15));
+        polecenie3.setPreferredSize(new Dimension(100, 20));
+        polecenie3.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.add(polecenie3);
+        JTextField rok = new JTextField();
+        rok.setPreferredSize(new Dimension(100, 20));
+        rok.setMaximumSize(new Dimension(100, 20));
+        this.add(rok);
+
+        this.add(Box.createVerticalStrut(50));
+
+        JButton przycisk = new JButton("Wyznacz");
+        przycisk.setBackground(new Color(204, 255, 204));
+        przycisk.setForeground(new Color(0, 153, 0));
+        przycisk.setFocusable(false);
+        przycisk.setAlignmentX(Component.LEFT_ALIGNMENT);
+        przycisk.addActionListener(e ->{
+            LocalDate data = LocalDate.of(Integer.getInteger(rok.getText()), Integer.getInteger(miesiac.getText()), Integer.getInteger(dzien.getText()));
+            for(Kurs k: Kursy.getInstance().getKursy()){
+                if(k.equals(kurs.getSelectedItem())){
+                    k.setData(data);
+                }
+            }
+
+//            JLabel komunikat = new JLabel("Pole na komunikaty: ");
+//            komunikat.setBackground(new Color(247, 239, 239));
+//            komunikat.setFont(new Font("Serif", Font.BOLD, 15));
+//            komunikat.setPreferredSize(new Dimension(100, 20));
+//            komunikat.setAlignmentX(Component.LEFT_ALIGNMENT);
+//            this.add(komunikat);
+//            JTextArea komunikat2 = new JTextArea("Data została przypisana");
+//            komunikat2.setPreferredSize(new Dimension(500, 50));
+//            komunikat2.setMaximumSize(new Dimension(500, 50));
+//            komunikat2.write();
+        });
+        this.add(przycisk);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void duplikatyStudenci(){
+            this.removeAll();
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            JLabel polecenie = new JLabel("Przed usuwaniem duplikatów: ");
+            polecenie.setBackground(new Color(247, 239, 239));
+            polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+            polecenie.setPreferredSize(new Dimension(100, 20));
+            polecenie.setAlignmentX(Component.LEFT_ALIGNMENT);
+            this.add(polecenie);
+            this.add(Box.createVerticalStrut(10));
+            TabelkaStudenci st = new TabelkaStudenci();
+            JScrollPane scrollPane = new JScrollPane(st);
+            this.add(scrollPane);
+            this.add(Box.createVerticalStrut(10));
+            JLabel wynik = new JLabel("Po usuwaniu duplikatów:");
+            wynik.setBackground(new Color(247, 239, 239));
+            wynik.setFont(new Font("Serif", Font.BOLD, 15));
+            wynik.setPreferredSize(new Dimension(100, 20));
+            wynik.setAlignmentX(Component.LEFT_ALIGNMENT);
+            this.add(wynik);
+            this.add(Box.createVerticalStrut(10));
+            DuplikatyStudenci duplikatyosoby = new DuplikatyStudenci();
+            JScrollPane scrollPane2 = new JScrollPane(duplikatyosoby);
+            this.add(scrollPane2);
+            this.revalidate();
+            this.repaint();
+    }
+
+    public void duplikatyPracownicy(){
+        this.removeAll();
+
+        JLabel polecenie = new JLabel("Przed usuwaniem duplikatów: ");
+        polecenie.setBackground(new Color(247, 239, 239));
+        polecenie.setFont(new Font("Serif", Font.BOLD, 15));
+        polecenie.setPreferredSize(new Dimension(100, 20));
+        polecenie.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.add(polecenie);
+        this.add(Box.createVerticalStrut(10));
+        TabelkaPracownicy pr = new TabelkaPracownicy();
+        JScrollPane scrollPane = new JScrollPane(pr);
+        this.add(scrollPane);
+        this.add(Box.createVerticalStrut(10));
+        JLabel wynik = new JLabel("Po usuwaniu duplikatów:");
+        wynik.setBackground(new Color(247, 239, 239));
+        wynik.setFont(new Font("Serif", Font.BOLD, 15));
+        wynik.setPreferredSize(new Dimension(100, 20));
+        wynik.setAlignmentX(Component.LEFT_ALIGNMENT);
+        this.add(wynik);
+        this.add(Box.createVerticalStrut(10));
+        DuplikatyPracownicy duplikatyosoby = new DuplikatyPracownicy();
+        JScrollPane scrollPane2 = new JScrollPane(duplikatyosoby);
+        this.add(scrollPane2);
+
+
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void sortujNazwiska(){
+        this.removeAll();
+        Collections.sort(Uczelnia.getInstance().getUczelnia(), new PorownanieNazwisko());
+        TabelkaOsoby to = new TabelkaOsoby();
+        JScrollPane scrollPane = new JScrollPane(to);
+        this.add(scrollPane);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void sortujNazwiskaWiek(){
+        this.removeAll();
+        Collections.sort(Uczelnia.getInstance().getUczelnia(), new PorownanieNazwiskoWiek());
+        TabelkaOsoby to = new TabelkaOsoby();
+        JScrollPane scrollPane = new JScrollPane(to);
+        this.add(scrollPane);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void sortujNazwiskoImie(){
+        this.removeAll();
+        Collections.sort(Uczelnia.getInstance().getUczelnia(), new PorownanieNazwiskoImie());
+        TabelkaOsoby to = new TabelkaOsoby();
+        JScrollPane scrollPane = new JScrollPane(to);
+        this.add(scrollPane);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void sortujECTS(){
+        this.removeAll();
+        Collections.sort(Kursy.getInstance().getKursy(), new PorownanieECTS());
+        TabelkaKursy tk = new TabelkaKursy();
+        this.add(tk);
+        this.revalidate();
+        this.repaint();
+    }
+
+    public void sortujNazwiskoProwadzacego(){
+        this.removeAll();
+        Collections.sort(Kursy.getInstance().getKursy(), new PorownanieNazwiskaProwadzacego());
+        TabelkaKursy tk = new TabelkaKursy();
+        this.add(tk);
         this.revalidate();
         this.repaint();
     }

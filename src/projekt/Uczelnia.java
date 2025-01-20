@@ -180,8 +180,6 @@ public class Uczelnia{
     }
 
     public void usunOsobe(Osoba o){
-        if(uczelnia.contains(o)) {
-            uczelnia.remove(o);
-        }
+        Uczelnia.getInstance().getUczelnia().remove(o);
     }
 }
