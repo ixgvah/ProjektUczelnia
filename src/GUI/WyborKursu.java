@@ -11,7 +11,7 @@ public class WyborKursu extends JComboBox<Kurs> {
         ArrayList<Kurs> kursy = new ArrayList<>();
         for(Kurs o: Kursy.getInstance().getKursy()){
             if(o instanceof Kurs){
-                kursy.add((Kurs)o);
+                kursy.add(o);
             }
         }
         for(Kurs p: kursy){

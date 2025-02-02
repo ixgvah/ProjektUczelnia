@@ -3,13 +3,14 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class NameButton extends JButton {
+public class PrzyciskMenu extends JButton{
     Runnable action;
-    public NameButton(String tekst) {
+    public PrzyciskMenu(String tekst) {
         super(tekst);
         this.setFont(new Font("Serif", Font.BOLD, 15));
-        this.setPreferredSize(new Dimension(300, 40));
-        this.setMaximumSize(new Dimension(300, 40));
+        this.setPreferredSize(new Dimension(183, 50));
+        this.setMinimumSize(new Dimension(183, 50));
+        this.setMaximumSize(new Dimension(183, 50));
         this.setFocusable(false);
         this.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.setForeground(new Color(102, 0, 0));
@@ -18,4 +19,5 @@ public class NameButton extends JButton {
     public void setAction(Runnable action) {
         this.addActionListener(e -> action.run());
     }
+
 }

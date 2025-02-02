@@ -5,7 +5,6 @@ import Komparatory.SortowanieKursow.PorownanieNazwiskaProwadzacego;
 import Komparatory.SortowanieOsob.PorownanieNazwisko;
 import Komparatory.SortowanieOsob.PorownanieNazwiskoImie;
 import Komparatory.SortowanieOsob.PorownanieNazwiskoWiek;
-import UsuwanieHashSetami.usuwanieDuplikatowStudenci;
 import projekt.*;
 
 import javax.swing.*;
@@ -18,18 +17,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
-public class ResultPanel extends JPanel {
-    private static ResultPanel instance;
-    public ResultPanel(){
+public class PanelWyniki extends JPanel {
+    private static PanelWyniki instance;
+    public PanelWyniki(){
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.setBackground(new Color(236, 231, 231));
         this.setPreferredSize(new Dimension(500, 500));
         this.setVisible(true);
     }
 
-    public static ResultPanel getInstance() {
+    public static PanelWyniki getInstance() {
         if (instance == null) {
-            instance = new ResultPanel();
+            instance = new PanelWyniki();
         }
         return instance;
     }
@@ -342,7 +341,6 @@ public class ResultPanel extends JPanel {
         WyborWykladowcy ww = new WyborWykladowcy();
         this.add(ww);
         this.add(Box.createVerticalStrut(10));
-        PracownikBadawczoDydaktyczny w = (PracownikBadawczoDydaktyczny) ww.getSelectedItem();
 
         JLabel polecenie3 = new JLabel("Podaj liczbę punktów ECTS: ");
         polecenie3.setFont(new Font("Serif", Font.BOLD, 15));
@@ -358,7 +356,7 @@ public class ResultPanel extends JPanel {
         dodaj.setForeground(new Color(0, 153, 0));
         dodaj.setFocusable(false);
         dodaj.setAlignmentX(Component.LEFT_ALIGNMENT);
-        dodaj.addActionListener(e -> Kursy.getInstance().dodajKurs(new Kurs(nazwa.getText(), w, Integer.parseInt(ECTS.getText()))));
+        dodaj.addActionListener(e -> Kursy.getInstance().dodajKurs(new Kurs(nazwa.getText(), (PracownikBadawczoDydaktyczny) ww.getSelectedItem(), Integer.parseInt(ECTS.getText()))));
         this.add(dodaj);
 
 
@@ -504,8 +502,8 @@ public class ResultPanel extends JPanel {
                 kurs.setPreferredSize(new Dimension(100, 20));
                 kurs.setAlignmentX(Component.LEFT_ALIGNMENT);
                 kurs.setFont(new Font("Serif", Font.BOLD, 15));
-                ResultPanel.getInstance().add(kurs);
-                ResultPanel.getInstance().add(Box.createVerticalStrut(10));
+                PanelWyniki.getInstance().add(kurs);
+                PanelWyniki.getInstance().add(Box.createVerticalStrut(10));
                 this.revalidate();
                 this.repaint();
             }
@@ -680,7 +678,7 @@ public class ResultPanel extends JPanel {
         this.add(polecenie);
         this.add(Box.createVerticalStrut(10));
 
-        wyborPolaDoWyszukiwaniaStudent pole = new wyborPolaDoWyszukiwaniaStudent();
+        wyborPolaDoWyszukiwaniaPracownik pole = new wyborPolaDoWyszukiwaniaPracownik();
         this.add(pole);
         this.add(Box.createVerticalStrut(10));
 

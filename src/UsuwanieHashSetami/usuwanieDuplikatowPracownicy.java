@@ -15,6 +15,10 @@ public class usuwanieDuplikatowPracownicy implements UsunHashSetami {
             }
         }
         ArrayList<Osoba> wynik = new ArrayList<>(osoby);
+//        for(Osoba p: wynik){
+//            System.out.println(p.toString());
+//        }
         return wynik;
+
     }
 }
