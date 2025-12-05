@@ -2,7 +2,7 @@
 
 <h3>Project for Wroclaw Institute of Science and Technology</h3>
 
-A simple application for managing academy employees, students, and classes.
+My first ever application for managing academy employees, students, and classes.
 Built entirely in Java Swing as part of my studies.
 
 This was my first bigger project using both structured and object-oriented programming approaches.
