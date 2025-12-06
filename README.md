@@ -1,16 +1,20 @@
-# Academy Management System
+<h2>🎓 Academy Manager</h2>
 
-<h3>Project for Wroclaw Institute of Science and Technology</h3>
+<p>
+  Project created for the <strong>Wroclaw Institute of Science and Technology</strong>. <br>
+  This is my first full application for managing academy employees, students, and classes.
+  It was built entirely in <strong>Java Swing</strong> as part of my studies.
+</p>
 
-My first ever application for managing academy employees, students, and classes.
-Built entirely in Java Swing as part of my studies.
+<p>
+  This was my first larger project using both structured and object-oriented programming approaches.
+  While it could definitely be improved, it taught me a lot about Java, GUI development, and overall
+  program structure.
+</p>
 
-This was my first bigger project using both structured and object-oriented programming approaches.
-While it could definitely be improved, it helped me learn a lot about Java, GUI development, and program structure.
-
-<h4>Main features:</h4>
+<h3>⭐ Main Features</h3>
 <ul>
-<li>Manage students, teachers, and courses</li>
-<li>Add, edit, and remove records</li>
-<li>Basic GUI built with Java Swing</li>
-<ul>
+  <li>Manage students, teachers, and courses</li>
+  <li>Add, edit, and remove records</li>
+  <li>Basic GUI built with Java Swing</li>
+</ul>
